@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Run at new account creation
+Parameters:
+    myEnvironment:
+        type: string
+    adminRoleName:
+        type: string
+Resources:
+    adminRole:
+        Type: AWS::IAM::Role
+        Properties: 
+            AssumeRolePolicyDocument: 
+                Version: "2012-10-17"
+                Statement:
+                    - Effect: "Allow"
+                      Principal: 
+                      AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+                      Action": "sts:AssumeRole",
+                      Condition":
+                      Bool: 
+                        aws:MultiFactorAuthPresent: true
+            Description: The administration role
+            ManagedPolicyArns: 
+                - arn:aws:iam::aws:policy/AdministratorAccess
+            RoleName: !Ref adminRoleName
+            Tags: 
+                - 
+                    Key: Environment
+                    Value: !Ref myEnvironment

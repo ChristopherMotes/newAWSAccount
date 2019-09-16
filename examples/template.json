@@ -1,0 +1,10 @@
+[
+    {
+        "ParameterKey": "adminRoleName"
+        "ParameterValue": "adminRole"
+    },
+    {
+        "ParameterKey": "myEnvironment"
+        "ParameterValue": "production"
+    }
+]
