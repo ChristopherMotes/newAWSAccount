@@ -14,11 +14,11 @@ Resources:
                 Statement:
                     - Effect: "Allow"
                       Principal: 
-                      AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+                        AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
                       Action": sts:AssumeRole
                       Condition":
-                      Bool: 
-                        aws:MultiFactorAuthPresent: true
+                        - Bool: 
+                            aws:MultiFactorAuthPresent: true
             Description: The administration role
             ManagedPolicyArns: 
                 - arn:aws:iam::aws:policy/AdministratorAccess
