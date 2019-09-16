@@ -12,13 +12,14 @@ Resources:
             AssumeRolePolicyDocument: 
                 Version: "2012-10-17"
                 Statement:
-                    - Effect: "Allow"
-                      Principal: 
-                        AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
-                      Action": sts:AssumeRole
-                      Condition":
-                        - Bool: 
-                            aws:MultiFactorAuthPresent: true
+                    - 
+                        effect: "Allow"
+                        Principal: 
+                            AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+                        Action": sts:AssumeRole
+                        Condition:
+                            Bool: 
+                                aws:MultiFactorAuthPresent: true
             Description: The administration role
             ManagedPolicyArns: 
                 - arn:aws:iam::aws:policy/AdministratorAccess
