@@ -2,9 +2,9 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: Run at new account creation
 Parameters:
     myEnvironment:
-        type: string
+        Type: String
     adminRoleName:
-        type: string
+        Type: String
 Resources:
     adminRole:
         Type: AWS::IAM::Role
@@ -15,7 +15,7 @@ Resources:
                     - Effect: "Allow"
                       Principal: 
                       AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
-                      Action": "sts:AssumeRole",
+                      Action": sts:AssumeRole
                       Condition":
                       Bool: 
                         aws:MultiFactorAuthPresent: true
