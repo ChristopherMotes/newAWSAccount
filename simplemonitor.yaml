@@ -19,9 +19,31 @@ Resources:
                     Endpoint: motescj@gmail.com
                     Protocol: email 
             TopicName: !Sub '${AWS::StackName}-alerts'
+    cloudTrailBucketPolicy:
+        Type: AWS::S3::BucketPolicy
+        Properties: 
+            Bucket: !Sub '${AWS::StackName}.imperial.galactic.gov'
+            PolicyDocument: 
+                Version: "2012-10-17"
+                Statement: 
+                    - 
+                        Sid: "AWSCloudTrailAclCheck20150319"
+                        Effect: "Allow"
+                        Principal: {"Service": "cloudtrail.amazonaws.com"},
+                        Action: "s3:GetBucketAcl"
+                        Resource: !GetAtt configS3bucket.Arn
+                    -
+                        Sid: "AWSCloudTrailWrite20150319"
+                        Effect: "Allow"
+                        Principal: {"Service": "cloudtrail.amazonaws.com"}
+                        Action: "s3:PutObject"
+                        Resource: !Sub '"arn:aws:s3:::${AWS::StackName}.imperial.galactic.gov/cloudTrail/AWSLogs/${AWS::AccountId}/*",
+                        Condition: {"StringEquals": {"s3:x-amz-acl": "bucket-owner-full-control"}}
     cloudTrail:
         Type: AWS::CloudTrail::Trail
         Properties: 
+            IncludeGlobalServiceEvents: True
+            IsLogging: False
             IsMultiRegionTrail: True
             S3BucketName: !Sub '${AWS::StackName}.imperial.galactic.gov'
             S3KeyPrefix: /cloudTrail/
