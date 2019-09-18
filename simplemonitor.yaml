@@ -5,6 +5,9 @@ Resources:
         Type: AWS::S3::Bucket
         Properties: 
             BucketName: !Sub '${AWS::StackName}.imperial.galactic.gov'
+            LoggingConfiguration:
+                DestinationBucketName: !ImportValue logging-bucket-name
+                LogFilePrefix: !Sub '${AWS::StackName}-cloudtrail'
             LifecycleConfiguration: 
                 Rules: 
                     - ExpirationInDays: 30
