@@ -19,3 +19,11 @@ Resources:
                     Endpoint: motescj@gmail.com
                     Protocol: email 
             TopicName: !Sub '${AWS::StackName}-alerts'
+    cloudTrail:
+        Type: AWS::CloudTrail::Trail
+        Properties: 
+            IsMultiRegionTrail: True
+            S3BucketName: !Sub '${AWS::StackName}.imperial.galactic.gov'
+            S3KeyPrefix: /cloudTrail/
+            SnsTopicName: !Sub '${AWS::StackName}-alerts'
+            TrailName: !Sub '${AWS::StackName}-allregion'
