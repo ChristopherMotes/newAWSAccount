@@ -4,8 +4,8 @@ Resources:
     loggingBucket:
         Type: AWS::S3::Bucket
         Properties: 
+            AccessControl: LogDeliveryWrite
             BucketName: 'loggingbucket.imperial.galactic.gov'
-            
             LifecycleConfiguration: 
                 Rules: 
                     - ExpirationInDays: 10
