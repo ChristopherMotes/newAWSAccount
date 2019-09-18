@@ -1,13 +1,23 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: Other resources for new account creation
 Resources:
-    logging:
+    loggingBucket:
         Type: AWS::S3::Bucket
         Properties: 
-            BucketName: !Sub '${AWS::StackName}-loggingbucket.imperial.galactic.gov'
+            BucketName: 'loggingbucket.imperial.galactic.gov'
             
             LifecycleConfiguration: 
                 Rules: 
                     - ExpirationInDays: 10
                       Id: !Sub '${AWS::StackName}-objectExpire'
                       Status: Enabled
+Outputs:
+    loggingBucketName:
+        Value: !Ref loggingBucket
+        Export: 
+            Name: logging-bucket-name
+    loggingBucketArn:
+        Value: !GetAtt loggingBucket.Arn
+        Export: 
+            Name: logging-bucket-arn
+    
