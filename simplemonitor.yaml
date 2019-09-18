@@ -1,3 +1,21 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: Run at new account creation
 Resources:
+    configS3bucket:
+        Type: AWS::S3::Bucket
+        Properties: 
+            BucketName: !Sub '${AWS::StackName}.imperial.galactic.gov'
+            LifecycleConfiguration: 
+                Rules: 
+                    - ExpirationInDays: 30
+                      Id: !Sub '${AWS::StackName}-objectExpire'
+                      Status: Enabled
+    snsTopic:
+        Type: AWS::SNS::Topic
+        Properties: 
+            DisplayName: An SNS Topic for all simple monitoring
+            Subscription: 
+                -
+                    Endpoint: motescj@gmail.com
+                    Protocol: email 
+            TopicName: !Sub '${AWS::StackName}-alerts'
