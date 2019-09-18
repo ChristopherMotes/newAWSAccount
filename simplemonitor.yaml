@@ -19,6 +19,21 @@ Resources:
                     Endpoint: motescj@gmail.com
                     Protocol: email 
             TopicName: !Sub '${AWS::StackName}-alerts'
+    cloudTrailSNSPolicy:
+        Type: AWS::SNS::TopicPolicy
+        Properties: 
+            PolicyDocument: 
+                Version: "2012-10-17"
+                Statement:
+                    -
+                        Sid: AWSCloudTrailSNSPolicy20131101
+                        Effect: Allow
+                        Principal: {"Service": "cloudtrail.amazonaws.com"}
+                        Action: SNS:Publish
+                        Resource: !Ref snsTopic
+            Topics: 
+                - !Ref snsTopic
+
     cloudTrailBucketPolicy:
         Type: AWS::S3::BucketPolicy
         Properties: 
@@ -41,12 +56,14 @@ Resources:
                         Condition: {"StringEquals": {"s3:x-amz-acl": "bucket-owner-full-control"}}
     cloudTrail:
         Type: AWS::CloudTrail::Trail
-        DependsOn: cloudTrailBucketPolicy
+        DependsOn: 
+            - cloudTrailBucketPolicy
+            - cloudTrailSNSPolicy
         Properties: 
             IncludeGlobalServiceEvents: True
             IsLogging: False
             IsMultiRegionTrail: True
             S3BucketName: !Sub '${AWS::StackName}.imperial.galactic.gov'
-            S3KeyPrefix: /cloudTrail/
+            S3KeyPrefix: cloudTrail
             SnsTopicName: !Sub '${AWS::StackName}-alerts'
             TrailName: !Sub '${AWS::StackName}-allregion'
