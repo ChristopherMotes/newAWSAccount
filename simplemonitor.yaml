@@ -28,7 +28,6 @@ Resources:
             PolicyDocument: 
                 Version: "2012-10-17"
                 Statement:
-                    -
                         Sid: AWSCloudTrailSNSPolicy20131101
                         Effect: Allow
                         Principal: {"Service": "cloudtrail.amazonaws.com"}
@@ -57,6 +56,11 @@ Resources:
                         Action: "s3:PutObject"
                         Resource: !Sub 'arn:aws:s3:::${AWS::StackName}.imperial.galactic.gov/cloudTrail/AWSLogs/${AWS::AccountId}/*'
                         Condition: {"StringEquals": {"s3:x-amz-acl": "bucket-owner-full-control"}}
+    cloudTrailCloudWatchLogs:
+        Type: AWS::Logs::LogGroup
+        Properties: 
+          LogGroupName: cloudtrail
+          RetentionInDays: 3
     cloudTrail:
         Type: AWS::CloudTrail::Trail
         DependsOn: 
