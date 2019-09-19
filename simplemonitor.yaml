@@ -90,6 +90,8 @@ Resources:
             - cloudTrailBucketPolicy
             - cloudTrailSNSPolicy
         Properties: 
+            CloudWatchLogsLogGroupArn: !GetAtt cloudTrailCloudWatchLogs.Arn
+            CloudWatchLogsRoleArn: !GetAtt cloudTrailRole.Arn
             IncludeGlobalServiceEvents: True
             IsLogging: False
             IsMultiRegionTrail: True
