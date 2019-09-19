@@ -58,6 +58,32 @@ Resources:
         Properties: 
           LogGroupName: cloudtrail
           RetentionInDays: 3
+    cloudTrailRole:
+        Type: AWS::IAM::Role
+        Properties: 
+            AssumeRolePolicyDocument: 
+                Version: 2012-10-17
+                Statement: 
+                     -
+                        Effect: Allow
+                        Principal: { "Service": "cloudtrail.amazonaws.com" }
+                        Action: sts:AssumeRole
+            Description: Role for CloudTrail
+            Policies:
+                - 
+                    PolicyName: "CloudTrailToCWLogs"
+                    PolicyDocument:
+                        Version: 2012-10-17
+                        Statement: 
+                            -
+                                Effect: Allow
+                                Action:  logs:CreateLogStream
+                                Resource:  !GetAtt cloudTrailCloudWatchLogs.Arn
+                            - 
+                                Effect: Allow
+                                Action:  logs:PutLogEvents
+                                Resource:  !GetAtt cloudTrailCloudWatchLogs.Arn
+            RoleName: !Sub '${AWS::StackName}-cloudtrail'
     cloudTrail:
         Type: AWS::CloudTrail::Trail
         DependsOn: 
