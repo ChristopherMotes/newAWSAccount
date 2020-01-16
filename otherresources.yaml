@@ -17,7 +17,12 @@ Resources:
         Properties: 
             BucketName: 'terraform-state.imperial.galactic.gov'
             VersioningConfiguration: 
-                      Status: Enabled
+                Status: Enabled
+            LoggingConfiguration:
+                DestinationBucketName: Ref! loggingBucket
+                LogFilePrefix: 'terraform-state/'
+                
+            
             
 Outputs:
     loggingBucketName:
