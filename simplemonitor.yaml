@@ -97,5 +97,10 @@ Resources:
             IsMultiRegionTrail: True
             S3BucketName: !Sub '${AWS::StackName}.imperial.galactic.gov'
             S3KeyPrefix: cloudTrail
-            SnsTopicName: !Sub '${AWS::StackName}-alerts'
             TrailName: !Sub '${AWS::StackName}-allregion'
+    terrraformStateFileBucket:
+        Type: AWS::S3::Bucket
+        Properties: 
+            BucketName: !Sub '${AWS::StackName}-terraform-state.imperial.galactic.gov'
+            VersioningConfiguration: 
+                      Status: Enabled
