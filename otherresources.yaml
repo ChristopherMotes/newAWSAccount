@@ -11,6 +11,14 @@ Resources:
                     - ExpirationInDays: 10
                       Id: !Sub '${AWS::StackName}-objectExpire'
                       Status: Enabled
+                      
+    terrraformStateFileBucket:
+        Type: AWS::S3::Bucket
+        Properties: 
+            BucketName: 'terraform-state.imperial.galactic.gov'
+            VersioningConfiguration: 
+                      Status: Enabled
+            
 Outputs:
     loggingBucketName:
         Value: !Ref loggingBucket
