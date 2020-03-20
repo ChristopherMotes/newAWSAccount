@@ -8,7 +8,7 @@ Resources:
             BucketName: 'loggingbucket.imperial.galactic.gov'
             LifecycleConfiguration: 
                 Rules: 
-                    - ExpirationInDays: 10
+                    - ExpirationInDays: 1
                       Id: !Sub '${AWS::StackName}-objectExpire'
                       Status: Enabled
                       
@@ -19,7 +19,7 @@ Resources:
             VersioningConfiguration: 
                 Status: Enabled
             LoggingConfiguration:
-                DestinationBucketName: Ref! loggingBucket
+                DestinationBucketName: !Ref loggingBucket
                 LogFilePrefix: 'terraform-state/'
                 
             
@@ -33,4 +33,3 @@ Outputs:
         Value: !GetAtt loggingBucket.Arn
         Export: 
             Name: logging-bucket-arn
-    
