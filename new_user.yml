@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Run at new account creation
+Parameters:
+    userName:
+        Type: String
+        Description: The main user name
+    subnetId:
+        Type: AWS::EC2::Subnet::Id
+        Description: The subnetId
+
+Resources:
+    userAccount:
+        Type: AWS::IAM::User
+        Properties: 
+            Groups: 
+                - administrators
+            UserName: !Ref userName
+
+    cloud9EC2EnvUser:
+        Requires: 
+        Type: AWS::Cloud9::EnvironmentEC2
+        Properties: 
+            InstanceType: t2.small
+            Name: !Sub "${userName} Cloud9"
+            OwnerArn: !GetAtt userAccount
+            SubnetId: !Ref subnetId
