@@ -17,10 +17,9 @@ Resources:
             UserName: !Ref userName
 
     cloud9EC2EnvUser:
-        Requires: 
         Type: AWS::Cloud9::EnvironmentEC2
         Properties: 
-            InstanceType: t2.small
+            InstanceType: t2.micro
             Name: !Sub "${userName} Cloud9"
-            OwnerArn: !GetAtt userAccount
+            OwnerArn: !GetAtt userAccount.Arn
             SubnetId: !Ref subnetId
