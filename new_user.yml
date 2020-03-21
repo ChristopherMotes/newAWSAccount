@@ -7,6 +7,9 @@ Parameters:
     subnetId:
         Type: AWS::EC2::Subnet::Id
         Description: The subnetId
+    vpcId:
+        Type: AWS::EC2::VPC::Id
+        Description: The VPC for the SecurityGroup
 
 Resources:
     userAccount:
@@ -24,6 +27,7 @@ Resources:
             SecurityGroupEgress:
                 - CidrIp: 127.0.0.1/32
                   IpProtocol: "-1"
+            VpcId: !Ref vpcId
     
     
 
