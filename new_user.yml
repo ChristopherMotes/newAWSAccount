@@ -16,6 +16,17 @@ Resources:
                 - administrators
             UserName: !Ref userName
 
+    securityGroup: 
+        Type: AWS::EC2::SecurityGroup
+        Properties: 
+            GroupDescription: !Sub "SecurityGroup for ${userName}"
+            GroupName: !Sub "individual-${userName}"
+            SecurityGroupEgress:
+                - CidrIp: 127.0.0.1/32
+                  IpProtocol: "-1"
+    
+    
+
     cloud9EC2EnvUser:
         Type: AWS::Cloud9::EnvironmentEC2
         Properties: 
