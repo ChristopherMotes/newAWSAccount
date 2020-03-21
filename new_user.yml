@@ -4,12 +4,6 @@ Parameters:
     userName:
         Type: String
         Description: The main user name
-    subnetId:
-        Type: AWS::EC2::Subnet::Id
-        Description: The subnetId
-    vpcId:
-        Type: AWS::EC2::VPC::Id
-        Description: The VPC for the SecurityGroup
 
 Resources:
     userAccount:
@@ -24,10 +18,6 @@ Resources:
         Properties: 
             GroupDescription: !Sub "SecurityGroup for ${userName}"
             GroupName: !Sub "individual-${userName}"
-            SecurityGroupEgress:
-                - CidrIp: 127.0.0.1/32
-                  IpProtocol: "-1"
-            VpcId: !Ref vpcId
     
     
 
@@ -37,4 +27,3 @@ Resources:
             InstanceType: t2.micro
             Name: !Sub "${userName} Cloud9"
             OwnerArn: !GetAtt userAccount.Arn
-            SubnetId: !Ref subnetId
