@@ -19,10 +19,10 @@ Resources:
             GroupDescription: !Sub "SecurityGroup for ${userName}"
             GroupName: !Sub "individual-${userName}"
     
-    cloud9EC2EnvUser:
-        Type: AWS::Cloud9::EnvironmentEC2
-        Properties: 
-            AutomaticStopTimeMinutes: 15
-            InstanceType: t2.micro
-            Name: !Sub "${userName} Cloud9"
-            OwnerArn: !GetAtt userAccount.Arn
+ #   cloud9EC2EnvUser:
+ #       Type: AWS::Cloud9::EnvironmentEC2
+ #       Properties: 
+ #           AutomaticStopTimeMinutes: 15
+ #           InstanceType: t2.micro
+ #           Name: !Sub "${userName} Cloud9"
+ #           OwnerArn: !GetAtt userAccount.Arn
